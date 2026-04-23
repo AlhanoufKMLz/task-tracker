@@ -12,6 +12,7 @@ public class TaskController {
 
     ArrayList<Task> tasks = new ArrayList<>();
 
+    //BASIC CRUD ENDPOINTS
     @GetMapping("/get")
     public ArrayList<Task> getTasks(){
         return tasks;
@@ -19,6 +20,10 @@ public class TaskController {
 
     @PostMapping("/add")
     public ApiResponse addTask(@RequestBody Task task){
+        for(Task t: tasks){
+            if(t.getId().equalsIgnoreCase(task.getId()))
+                return new ApiResponse("Task with this ID already exists");
+        }
         tasks.add(task);
         return new ApiResponse("Task added successfully");
     }
@@ -45,6 +50,8 @@ public class TaskController {
         return new ApiResponse("Task not found");
     }
 
+
+    //EXTRA ENDPOINTS
     @PutMapping("/update-status/{id}")
     public ApiResponse updateStatus(@PathVariable String id){
         for (Task task : tasks) {
