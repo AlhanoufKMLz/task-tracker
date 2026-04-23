@@ -23,5 +23,16 @@ public class TaskController {
         return new ApiResponse("Task added successfully");
     }
 
+    @PutMapping("/update/{id}")
+    public ApiResponse updateTask(@PathVariable String id, @RequestBody Task task){
+        for(int i = 0; i < tasks.size(); i++){
+            if(tasks.get(i).getId().equalsIgnoreCase(id)){
+                tasks.set(i, task);
+                return new ApiResponse("Task updated successfully");
+            }
+        }
+        return new ApiResponse("Task not found");
+    }
+
 
 }
