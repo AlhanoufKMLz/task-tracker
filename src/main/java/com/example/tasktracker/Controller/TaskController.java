@@ -34,5 +34,16 @@ public class TaskController {
         return new ApiResponse("Task not found");
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ApiResponse deleteTask(@PathVariable String id){
+        for(int i = 0; i < tasks.size(); i++){
+            if(tasks.get(i).getId().equalsIgnoreCase(id)){
+                tasks.remove(i);
+                return new ApiResponse("Task deleted successfully");
+            }
+        }
+        return new ApiResponse("Task not found");
+    }
+
 
 }
