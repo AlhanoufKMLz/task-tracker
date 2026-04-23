@@ -45,5 +45,16 @@ public class TaskController {
         return new ApiResponse("Task not found");
     }
 
+    @PutMapping("/update-status/{id}")
+    public ApiResponse updateStatus(@PathVariable String id){
+        for(int i = 0; i < tasks.size(); i++){
+            if(tasks.get(i).getId().equalsIgnoreCase(id)){
+                tasks.get(i).setDone(!tasks.get(i).isDone());
+                return new ApiResponse("Status updated successfully");
+            }
+        }
+        return new ApiResponse("Task not found");
+    }
+
 
 }
