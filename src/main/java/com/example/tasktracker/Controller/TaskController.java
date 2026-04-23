@@ -47,13 +47,22 @@ public class TaskController {
 
     @PutMapping("/update-status/{id}")
     public ApiResponse updateStatus(@PathVariable String id){
-        for(int i = 0; i < tasks.size(); i++){
-            if(tasks.get(i).getId().equalsIgnoreCase(id)){
-                tasks.get(i).setDone(!tasks.get(i).isDone());
+        for (Task task : tasks) {
+            if (task.getId().equalsIgnoreCase(id)) {
+                task.setDone(!task.isDone());
                 return new ApiResponse("Status updated successfully");
             }
         }
         return new ApiResponse("Task not found");
+    }
+
+    @GetMapping("/get-by-title/{title}")
+    public Task searchTaskByTitle(@PathVariable String title){
+        for(Task task: tasks){
+            if(task.getTitle().equalsIgnoreCase(title))
+                return task;
+        }
+        return null;
     }
 
 
